@@ -42,12 +42,53 @@ clearFilter
 </select>
 <label for="name">Driver Name *</label>
 <input type="text" id="driver" placeholder="Driver Name">
-<label for=""></label>
+<label for="">Is Available</label>
+<select name="" id="avail">
+    <option value="Available">Available</option>
+    <option value="unavail">Unavailable</option>
+</select>
+<button id="attBtn">Add Fleet</button>
 </aside>
-
-
-
+<div class="content">
+<h3>Fleet List</h3>
+<div id="cards" class="grid"></div>
+</div>
 </main>
+<script>
+let fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
+const sampleImg= "https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png";
+function render(){
+    let catF=filterCat.value;
+    let avF=filterAvail.value;
+    let data=fleet.filter(v=>{
+        let ok=true;
+        if(catF !=="All") ok=ok&&v.category===catF;
+      if(avF !=="All") ok=ok&&v.category===avF;  
+      return ok;
+    })
+    card.innerHtml ="";
+    data.forEach(v=>{
+        let card = document.createElement("div");
+        card.className="card";
+        card.innerHTML = 
+        `
+        <img src="${sampleImg}">
+        <p><b>RegNo:</b>${v.reg}</p>
+        <p><b>Category:</b>${v.category}</p>
+        <p><b>Driver:</b><span id="s-${v.id}>${v.driver}</span></p>
+        <p><b>Status:</b><span id="s-${v.id}>${v.available}</span></p>
+        <div class="btn-row">
+            <button onclick ="updateDriver('${v.id}')">Driver</button>
+ <button onclick ="updateDriver('${v.id}')">Avail</button>
+  <button onclick ="dell('${v.id}')">Delete</button>
+</div>
+        `;
+        
+    })
+}
+</script>
+
+
 
 </body>
 </html>
