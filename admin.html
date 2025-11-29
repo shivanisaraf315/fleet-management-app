@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h2 style="color: #2b611f;"> Fleet Admin</h2>
+        <div>
+            <select  id="filterCategory">
+                <option value="All">All</option>
+                <option value="Auto">Auto</option>
+                <option value="Car">Car</option>
+                <option value="Truck">Truck</option>
+                <option value="Bus">Bus</option>
+            </select>
+            <select name="" id="filterAvailability">
+<option value="all">All</option>
+<option value="avail">Available</option>
+<option value="unavail">Unavailable</option>
+            </select>
+<button id="clearFilters" style="margin-left: 10px; background-color: #2b61ff; color:white">
+clearFilter
+</button>
+        </div>
+    </header>
+<main>
+<aside class="sidebar">
+<h3>Add Fleet</h3>
+<label for="regNo">Reg No*</label>
+<input type="text" placeholder="eg: KA01AA1234">
+<label for="regNo">category*</label>
+<select name="" id="category">
+    <option value="">select</option>
+    <option value="">Auto</option>
+    <option value="">Car</option>
+    <option value="">Bus</option>
+    <option value="">Truck</option>
+</select>
+<label for="name">Driver Name *</label>
+<input type="text" id="driver" placeholder="Driver Name">
+<label for=""></label>
+</aside>
+
+
+
+</main>
+
+</body>
+</html>
