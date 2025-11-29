@@ -1,40 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fleet Managemant App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fleet App — Login</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="login-card">
-        
-        <h3>Fleet Login</h3>
-        <form id="loginForm"><fieldset>
-            <label for="email">Email</label>
-            <input type="email" id="email" required>
-            <label for="password">Password</label>
-            <input type="password" id="password" required>
-            <button type="submit" style="width: 100%; margin-top: 10px; background: #2b61ff;">
-                Login
-            </button>
-        </fieldset>
-        </form>
-        <script>
+  <main class="centered">
+    <div class="card login-card">
+      <h2>Admin Login</h2>
 
-            document.getElementById("loginForm").addEventListener("submit",function(e){
-                e.preventDefault();
-                let email=document.getElementById("email").value.trim();
-                let pass=document.getElementById("password").value;
-                if(email==="admin@gmail.com" && pass==="admin1234"){
-                    alert("Login Success");
-                    window.location.href="admin.html"
-                }
-                else{
-                    alert("Wrong Email Or Password")
-                }
-            });
-        </script>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="admin@gmail.com" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="admin1234" />
+
+      <button id="loginBtn" class="btn">Login</button>
     </div>
+  </main>
+
+  <script src="login.js"></script>
 </body>
 </html>

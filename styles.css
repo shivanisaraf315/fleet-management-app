@@ -1,0 +1,98 @@
+/* css/styles.css - minimal styling, focused on layout */
+
+/* reset-ish */
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #111;
+}
+
+/* centered login */
+.centered {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* cards */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* login */
+.login-card { width: 320px; }
+.login-card h2 { margin-top: 0; margin-bottom: 12px; text-align:center; }
+label { display:block; font-size:12px; margin-top:10px; }
+input, select { width:100%; padding:8px 10px; margin-top:6px; border-radius:6px; border:1px solid #ddd; }
+
+/* buttons */
+.btn { background:#0b79f7; color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; margin-top:12px; }
+.btn.small { padding:6px 8px; font-size:13px; }
+.btn.danger { background:#e53e3e; }
+
+/* layout for admin */
+.navbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+  background:#fff;
+  border-bottom:1px solid #e6e9ee;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.brand { font-weight:700; }
+
+.container {
+  display:flex;
+  gap:16px;
+  padding:18px;
+}
+
+/* sidebar */
+.sidebar {
+  width:280px;
+  min-height: calc(100vh - 72px);
+  position:sticky;
+  top:72px;
+}
+.sidebar h3 { margin-top:0; }
+
+/* main content */
+.main-content {
+  flex:1;
+}
+
+.cards-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+}
+
+/* card style */
+.fleet-card {
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+}
+.fleet-card img { width:100%; height:120px; object-fit:cover; display:block; }
+.card-body { padding:10px 12px; flex:1; display:flex; flex-direction:column; gap:6px; }
+.meta-row { font-size:14px; display:flex; justify-content:space-between; align-items:center; }
+.meta-row .label { font-weight:600; }
+.actions { display:flex; gap:8px; margin-top:auto; }
+.btn.ghost { background:transparent; border:1px solid #ddd; color:#111; padding:6px 8px; }
+.small { padding:6px 8px; font-size:13px; }
+
+/* responsive: 2 columns on medium, 1 on small */
+@media (max-width:1000px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } .sidebar { width:220px; } }
+@media (max-width:620px) { .cards-grid { grid-template-columns: 1fr; } .container { flex-direction:column; } .sidebar { position:relative; top:0; width:100%; } }

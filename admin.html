@@ -1,145 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fleet App — Admin</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <h2 style="color: #2b611f;"> Fleet Admin</h2>
-        <div>
-            <select  id="filterCategory">
-                <option value="All">All</option>
-                <option value="Auto">Auto</option>
-                <option value="Car">Car</option>
-                <option value="Truck">Truck</option>
-                <option value="Bus">Bus</option>
-            </select>
-            <select name="" id="filterAvailability">
-<option value="all">All</option>
-<option value="avail">Available</option>
-<option value="unavail">Unavailable</option>
-            </select>
-<button id="clearFilters" style="margin-left: 10px; background-color: #2b61ff; color:white">
-clearFilter
-</button>
-        </div>
-    </header>
-<main>
-<aside class="sidebar">
-<h3>Add Fleet</h3>
-<label for="regNo">Reg No*</label>
-<input type="text" placeholder="eg: KA01AA1234">
-<label for="regNo">category*</label>
-<select name="" id="category">
-    <option value="">select</option>
-    <option value="">Auto</option>
-    <option value="">Car</option>
-    <option value="">Bus</option>
-    <option value="">Truck</option>
-</select>
-<label for="name">Driver Name *</label>
-<input type="text" id="driver" placeholder="Driver Name">
-<label for="">Is Available</label>
-<select name="" id="avail">
-    <option value="Available">Available</option>
-    <option value="unavail">Unavailable</option>
-</select>
-<button id="attBtn">Add Fleet</button>
-</aside>
-<div class="content">
-<h3>Fleet List</h3>
-<div id="cards" class="grid"></div>
-</div>
-</main>
-<script>
-let fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
-const sampleImg= "https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png";
-function render(){
-    let catF=filterCat.value;
-    let avF=filterAvail.value;
-    let data=fleet.filter(v=>{
-        let ok=true;
-        if(catF !=="All") ok=ok&&v.category===catF;
-      if(avF !=="All") ok=ok&&v.category===avF;  
-      return ok;
-    })
-    card.innerHtml ="";
-    data.forEach(v=>{
-        let card = document.createElement("div");
-        card.className="card";
-        card.innerHTML = 
-        `
-        <img src="${sampleImg}">
-        <p><b>RegNo:</b>${v.reg}</p>
-        <p><b>Category:</b>${v.category}</p>
-        <p><b>Driver:</b><span id="s-${v.id}>${v.driver}</span></p>
-        <p><b>Status:</b><span id="s-${v.id}>${v.available}</span></p>
-        <div class="btn-row">
-            <button onclick ="updateDriver('${v.id}')">Driver</button>
- <button onclick ="updateDriver('${v.id}')">Avail</button>
-  <button onclick ="dell('${v.id}')">Delete</button>
-</div>
-        `;
-        cards.appendChild(card)
-    });
-}
-addBtn.onclick=function(){
-    let obj={
-        id:Date.now(),
-        reg:reg.value.trim(),
-        category:cat.value,
-        driver:driver.value.trim(),
-        available:avail.value
-    };
-    if(!obj.reg||!obj.category|| !obj.driver){
-        alert("All Fields required");
-        return
-    }
-    fleet.push(obj);
-    save()
-    render()
-    reg.value="";
-    cat.value="";
-    driver.value="";
-    avail.value="Available";
-};
-function updateDriver(id){
-    let item = fleet.find(x=>x.id == id);
-    let name=prompt("Newdriver name",item.driver);
-    if(name===null) return;
-    if(name.trim()==="")return;
-    save();
-    render();
+  <header class="navbar">
+    <div class="brand">Fleet Management — Admin</div>
 
-}
-function toggle(id){
-    let item=fleet.find(x=>x.id==id);
-    item.available=item.available==="Available"?"Unavailable":"Available";
-    save();
-    render();
-}
-function del(id){
-    if(confirm("Delete this vehicle?"))
-{
-    fleet=fleet.filter(x=>x.id!=id);
-    save();
-    render();
-};
-}
-filterCat.onchange= filterAvail.onchange=render;
-clear.onclick=()=>{
-    filterCat.value="All"
-    filterAvail.value="All"
-    render()
-};
-render();
+    <div class="filters">
+      <label>
+        Category
+        <select id="filterCategory">
+          <option value="All">All</option>
+          <option value="Auto">Auto</option>
+          <option value="Car">Car</option>
+          <option value="Truck">Truck</option>
+          <option value="Bus">Bus</option>
+        </select>
+      </label>
 
-</script>
+      <label>
+        Availability
+        <select id="filterAvailability">
+          <option value="All">All</option>
+          <option value="Available">Available</option>
+          <option value="Unavailable">Unavailable</option>
+        </select>
+      </label>
 
+      <button id="clearFilters" class="btn small">Clear Filter</button>
+      <button id="logoutBtn" class="btn small danger">Logout</button>
+    </div>
+  </header>
 
+  <div class="container">
+    <aside class="sidebar">
+      <h3>Add Fleet</h3>
+      <label for="regNo">Reg No of Vehicle</label>
+      <input id="regNo" type="text" placeholder="e.g. TS09AB1234" />
 
+      <label for="category">Category</label>
+      <select id="category">
+        <option value="">-- Select --</option>
+        <option>Auto</option>
+        <option>Car</option>
+        <option>Truck</option>
+        <option>Bus</option>
+      </select>
+
+      <label for="driverName">Driver Name</label>
+      <input id="driverName" type="text" placeholder="Driver full name" />
+
+      <label for="isAvailable">Is Available</label>
+      <select id="isAvailable">
+        <option value="Available">Available</option>
+        <option value="Unavailable">Unavailable</option>
+      </select>
+
+      <button id="addFleetBtn" class="btn">Add Fleet</button>
+    </aside>
+
+    <main class="main-content">
+      <div id="cardsContainer" class="cards-grid">
+        <!-- Fleet cards injected here -->
+      </div>
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
 </body>
 </html>
