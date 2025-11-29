@@ -83,9 +83,60 @@ function render(){
   <button onclick ="dell('${v.id}')">Delete</button>
 </div>
         `;
-        
-    })
+        cards.appendChild(card)
+    });
 }
+addBtn.onclick=function(){
+    let obj={
+        id:Date.now(),
+        reg:reg.value.trim(),
+        category:cat.value,
+        driver:driver.value.trim(),
+        available:avail.value
+    };
+    if(!obj.reg||!obj.category|| !obj.driver){
+        alert("All Fields required");
+        return
+    }
+    fleet.push(obj);
+    save()
+    render()
+    reg.value="";
+    cat.value="";
+    driver.value="";
+    avail.value="Available";
+};
+function updateDriver(id){
+    let item = fleet.find(x=>x.id == id);
+    let name=prompt("Newdriver name",item.driver);
+    if(name===null) return;
+    if(name.trim()==="")return;
+    save();
+    render();
+
+}
+function toggle(id){
+    let item=fleet.find(x=>x.id==id);
+    item.available=item.available==="Available"?"Unavailable":"Available";
+    save();
+    render();
+}
+function del(id){
+    if(confirm("Delete this vehicle?"))
+{
+    fleet=fleet.filter(x=>x.id!=id);
+    save();
+    render();
+};
+}
+filterCat.onchange= filterAvail.onchange=render;
+clear.onclick=()=>{
+    filterCat.value="All"
+    filterAvail.value="All"
+    render()
+};
+render();
+
 </script>
 
 
